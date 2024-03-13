@@ -1,45 +1,28 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class ElevensBoardTester {
 
     public static void main(String[] args) {
-        // Create a new ElevensBoard
-        ElevensBoard elevensBoard = new ElevensBoard();
+        ElevensBoard board = new ElevensBoard();
 
-        // Print the initial state
-        System.out.println("Initial Board State:");
-        System.out.println(elevensBoard);
+        System.out.println("Initial Board:");
+        System.out.println(board);
 
-        // Deal some cards to the board
-        elevensBoard.deal(0);
-        elevensBoard.deal(3);
-        elevensBoard.deal(6);
+        List<Integer> selectedCards = new ArrayList<>();
+        selectedCards.add(0);
+        selectedCards.add(1);
+        board.replaceSelectedCards(selectedCards);
 
-        // Print the state after dealing cards
-        System.out.println("Board State After Dealing Cards:");
-        System.out.println(elevensBoard);
+        System.out.println("Board after replacing cards:");
+        System.out.println(board);
 
-        // Replace selected cards
-        List<Integer> selectedCards = elevensBoard.cardIndexes();
-        System.out.println("Selected Cards to Replace: " + selectedCards);
-        elevensBoard.replaceSelectedCards(selectedCards);
+        board.deal(2);
+        board.deal(3);
 
-        // Print the state after replacing cards
-        System.out.println("Board State After Replacing Selected Cards:");
-        System.out.println(elevensBoard);
+        System.out.println("Board after dealing cards:");
+        System.out.println(board);
 
-        // Check if the game is won
-        if (elevensBoard.gameIsWon()) {
-            System.out.println("Congratulations! You won the game!");
-        } else {
-            System.out.println("The game is not yet won.");
-        }
-
-        // Start a new game
-        elevensBoard.newGame();
-
-        // Print the state after starting a new game
-        System.out.println("Board State After Starting a New Game:");
-        System.out.println(elevensBoard);
+        System.out.println("Is game won? " + board.gameIsWon());
     }
 }

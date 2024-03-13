@@ -32,14 +32,21 @@ public class Deck {
     public Deck(String[] ranks, String[] suits, int[] values) {
         cards = new ArrayList<>();
         for (int i = 0; i < ranks.length; i++) {
-            for (int n = 0; n < suits.length; n++) {
-                cards.add(new Card(ranks[i], suits[n], values[i]));
+            for (String suit : suits) {
+                cards.add(new Card(ranks[i], suit, values[i]));
             }
         }
         size = cards.size();
         shuffle();
     }
 
+    /**
+     * Make a empty Deck.  Useful for using as a player's hand.
+     */
+    public Deck()
+    {
+        cards = new ArrayList<Card>();
+    }
 
     /**
      * Determines if this deck is empty (no undealt cards).
@@ -62,7 +69,16 @@ public class Deck {
      * and reset the size to represent the entire deck.
      */
     public void shuffle() {
-        /* *** TO BE IMPLEMENTED IN ACTIVITY 4 *** */
+        int[] indices = new int[size];
+        for (int i = 0; i < size; i++) {
+            indices[i] = i;
+        }
+        Shuffler.selectionShuffle(indices);
+        List<Card> shuffled = new ArrayList<>();
+        for (int index : indices) {
+            shuffled.add(cards.get(index));
+        }
+        cards = shuffled;
     }
 
     /**
@@ -75,7 +91,26 @@ public class Deck {
             return null;
         }
         size--;
-        return cards.get(size);
+        return cards.remove(size);
+    }
+
+    /**
+     * Add a card to the <code> Deck </code>  on the top.
+     * @param c the <code> Card </code> that you wish to add to the top of the deck of cards
+     */
+    public void addToTop(Card c)
+    {
+        cards.add(c);
+    }
+
+    /**
+     * Add a card to the Deck on the bottom of the stack.
+     * @param c the <code> Card </code> that you wish to add to the bottom of the deck of cards
+
+     */
+    public void addToBottom(Card c)
+    {
+        cards.add(0,c);
     }
 
     /**
